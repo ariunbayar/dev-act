@@ -62,3 +62,13 @@ echo -e "${config_destination}"
 cp "${script_dir}/activity_monitor" "${executable_destination}"
 [ $? -eq 0 ] && sayok || sayerr
 echo -e "${executable_destination}"
+
+
+echo "Installation for Developer Activity Monitor is complete.
+Enable service with following command.
+
+    systemctl enable activity_monitor
+
+Start service with:
+
+    systemctl start activity_monitor"
