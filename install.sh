@@ -15,6 +15,7 @@ fi
 
 script_dir=$(dirname "$(readlink -e "$0")")
 executable_destination="/usr/local/bin/activity_monitor"
+config_destination="/etc/activity_monitor.conf"
 
 read -e -p "Enter activity monitor server name (domain or ip address): " \
     -i "localhost" server_ip
@@ -33,7 +34,7 @@ echo "[Unit]
 Description=Activity Monitor service
 
 [Service]
-ExecStart=${executable_destination}
+ExecStart=${executable_destination} ${config_destination}
 Type=simple
 PIDFile=/var/run/activity_monitor.pid
 Restart=always
@@ -47,7 +48,7 @@ echo -e "${systemd_service_destination}"
 
 
 # Output the sample config file
-config_destination="/etc/activity_monitor.conf"
+
 echo "# Configuration file for Activity Monitor
 # See: /usr/local/bin/activity_monitor
 Server ${server_ip}
