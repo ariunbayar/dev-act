@@ -24,7 +24,13 @@ read -e -p "Enter port the activity monitor is running: " \
 
 
 # Install scrot via apt-get
+echo -e "\n    Installing ImageMagick for screenshot\n"
 apt install imagemagick -y
+
+
+# Install python3 via apt-get
+echo -e "\n    Installing Python3 for mouse and keyboard activity\n"
+apt install python3 -y
 
 
 # Install systemd service
@@ -51,8 +57,11 @@ echo -e "${systemd_service_destination}"
 
 echo "# Configuration file for Activity Monitor
 # See: /usr/local/bin/activity_monitor
+
 Server ${server_ip}
-Port ${server_port}" > ${config_destination}
+Port ${server_port}
+
+ScreenshotInterval 60" > ${config_destination}
 
 [ $? -eq 0 ] && sayok || sayerr
 echo -e "${config_destination}"
@@ -64,11 +73,14 @@ cp "${script_dir}/activity_monitor" "${executable_destination}"
 echo -e "${executable_destination}"
 
 
-echo "Installation for Developer Activity Monitor is complete.
+echo -e "
+\033[01m\033[32mInstallation for Developer Activity Monitor is complete.\033[0m
+
 Enable service with following command.
 
     systemctl enable activity_monitor
 
 Start service with:
 
-    systemctl start activity_monitor"
+    systemctl start activity_monitor
+"
